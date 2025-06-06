@@ -23,7 +23,7 @@ library(tidyverse)
 ```
 
 ```{r}
-issuesvalues <- read.csv("issuevalue_short.csv")
+issuesvalues <- read.csv("data/issuevalue_short.csv")
 str(issuesvalues)
 ```
 
