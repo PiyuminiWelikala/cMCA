@@ -64,33 +64,22 @@ Visual outputs demonstrate:
 
 ## 📦 Repository Structure
 
+```
 ├── data/
-
 │ └── issuevalue_short.csv
-
 ├── requirements/
-
 │ └── requirements_BMFA.txt
-
 │ └── requirements_cMCA.txt
-
 │ └── requirements_MCA.txt
-
 │ └── requirements_OOC.txt
-
 │ └── Requirements.docx
-
 ├── CES15_BMFA.ipynb
-
 ├── CES15_BS.ipynb
-
 ├── CES15_MCA.ipynb
-
 ├── CES15_OOC.ipynb
-
 ├── cMCA_TargetBackground.ipynb
-
 ├── README.md
+```
 
 ## 🛠 Tools & Libraries
 
