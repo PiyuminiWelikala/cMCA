@@ -1,8 +1,6 @@
 # Contrastive Multiple Correspondence Analysis (cMCA)
 
-This repository contains the implementation of **Contrastive Multiple Correspondence Analysis (cMCA)**, a replication study based on the research paper:  
-**"Contrastive Multiple Correspondence Analysis: Applying the Contrastive Learning Method to Identify Political Subgroups"**  
-by **Takanori Fujiwara** and **Tzu-Ping Liu**.
+This repository contains the implementation of **Contrastive Multiple Correspondence Analysis (cMCA)**, a replication study based on the research paper: **"Contrastive Multiple Correspondence Analysis: Applying the Contrastive Learning Method to Identify Political Subgroups"** by **Takanori Fujiwara** and **Tzu-Ping Liu**.
 
 ## 📘 Overview
 
