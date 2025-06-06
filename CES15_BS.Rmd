@@ -1,0 +1,85 @@
+---
+title: "CES15_BS"
+author: "Sandaru Welikala"
+date: "2025-01-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Install necessary libraries
+install.packages("tidyverse")
+install.packages("blackbox")
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(basicspace)
+library(tidyverse)
+```
+
+```{r}
+issuesvalues <- read.csv("issuevalue_short.csv")
+str(issuesvalues)
+```
+
+
+```{r}
+# Map partid in seperate variable
+partyid <- issuesvalues$partyid
+partyid[issuesvalues$partyid==1] <- 1
+partyid[issuesvalues$partyid==2] <- 1
+partyid[issuesvalues$partyid==3] <- 1
+partyid[issuesvalues$partyid==5] <- 2
+partyid[issuesvalues$partyid==6] <- 2
+partyid[issuesvalues$partyid==7] <- 2
+partyid[partyid < 1 | partyid > 2] <- NA
+partyid <- factor(partyid, levels=c(1, 2), labels=c("DEM", "REP"))
+```
+
+```{r}
+# Remove the partyid from dataframe
+issuesvalues <- issuesvalues[, !(names(issuesvalues) %in% "partyid")]
+```
+
+```{r}
+# Convert all columns to numeric
+issuesvalues <- issuesvalues %>%
+  mutate(across(everything(), ~ as.numeric(as.character(.))))
+```
+
+```{r}
+bbresult <- blackbox(issuesvalues, missing=99, dims=2, minscale=5, verbose=TRUE)
+```
+
+```{r}
+xx <- bbresult$individuals[[2]][,1]
+yy <- bbresult$individuals[[2]][,2]
+
+bbresultdt <- cbind.data.frame(xx,yy,partyid)
+colnames(bbresultdt) <- c("coord1D", "coord2D", "party")
+bbresultdt_n <- bbresultdt %>% filter(party == "DEM" | party == "REP")
+```
+
+```{r}
+ggplot(data=bbresultdt_n, aes(x=coord1D, y=coord2D, color=as.factor(party))) + geom_point(size=2, alpha=0.6) +
+  xlim(-1,1) +
+  ylim(-1,1) +
+  xlab("\nPC1") +
+  ylab("PC2\n") +
+  ggtitle("BlackBox Result of CCES 2015") +
+  scale_colour_manual(values = c("#507AA6", "#DF585C"), labels=c("Dem","Rep")) +
+  theme(plot.title = element_text(hjust = 0.5), legend.position = c(0.97, 0.97),
+        legend.justification = c("right", "top"),
+        legend.box.just = "right",
+        legend.background = element_rect(colour="gray85", fill = "gray93"),
+        legend.key = element_rect(colour = "transparent", fill = NA),
+        legend.margin = margin(1, 6, 1, 1),
+        legend.title=element_blank())
+```
+
+
